@@ -30,7 +30,7 @@ const NewIssue = () => {
   const router = useRouter();
   const [error, setError] = React.useState<string>('')
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false)
-  
+
   const onSubmit = handleSubmit(async(data) => {
     try {
       setIsSubmitting(true)
@@ -43,7 +43,6 @@ const NewIssue = () => {
     }
   })
 
-  
   
   return (
     <div className='max-w-xl'>
