@@ -33,5 +33,7 @@ const IssueDetailPage = async ({ params } : Props) => {
     </Grid>
   )
 }
+// force update every second
+export const dynamic = 'force-dynamic'
 
 export default IssueDetailPage

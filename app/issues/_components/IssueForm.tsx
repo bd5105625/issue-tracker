@@ -2,7 +2,7 @@
 import { Button, Callout, TextField } from '@radix-ui/themes';
 import React from 'react';
 import { ErrorMessage, Spinner } from '@/app/components/index';
-import { createIssueSchema } from '@/app/validationSchema';
+import { issueSchema } from '@/app/validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import "easymde/dist/easymde.min.css";
@@ -11,13 +11,14 @@ import { useRouter } from 'next/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Issue } from '@prisma/client';
+import SimpleMDE  from 'react-simplemde-editor'
 
 // Original: import SimpleMDE from "react-simplemde-editor";
 // lazy loading and set it only rendered on the client side
-const SimpleMDE = dynamic(
-  () => import('react-simplemde-editor'),
-  { ssr: false }
-)
+// const SimpleMDE = dynamic(
+//   () => import('react-simplemde-editor'),
+//   { ssr: false }
+// )
 
 // interface IssueForm {
 //   title: string;
@@ -25,12 +26,12 @@ const SimpleMDE = dynamic(
 // }
 
 // initialize interface by importing schema from zod so that we don't have to write it twice
-type IssueFormData = z.infer<typeof createIssueSchema>
+type IssueFormData = z.infer<typeof issueSchema>
 
 
 const IssueForm = async ({ issue } : { issue?:Issue }) => {
   const {register, control, handleSubmit, formState: {errors}} = useForm<IssueFormData>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const router = useRouter();
   const [error, setError] = React.useState<string>('')
@@ -39,9 +40,13 @@ const IssueForm = async ({ issue } : { issue?:Issue }) => {
   const onSubmit = handleSubmit(async(data) => {
     try {
       setIsSubmitting(true)
-      await axios.post('/api/issues', data);
+      if (issue)
+        await axios.patch('/api/issues/' + issue.id, data)
+      else 
+        await axios.post('/api/issues', data);
       router.push('/issues')
-      
+      // because this client-side page will rerender only every 5 minutes, force it update when submit new issue
+      router.refresh() 
     } catch (error) {
       setIsSubmitting(false)
       setError('An unexpected error occurred.')
@@ -73,7 +78,10 @@ const IssueForm = async ({ issue } : { issue?:Issue }) => {
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         {/* { errors.description && <Text as='p' color='red'>{errors.description.message}</Text>} */}
         
-        <Button disabled={isSubmitting}>Submit New Issue{isSubmitting && <Spinner />}</Button>
+        <Button disabled={isSubmitting}>
+          { issue ? 'Update Issue' : 'Submit New Issue' }{' '}
+          {isSubmitting && <Spinner />}
+        </Button>
       </form>
     </div>
   )
