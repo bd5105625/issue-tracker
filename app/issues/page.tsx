@@ -43,4 +43,7 @@ const IssuesPage = async () => {
   )
 }
 
+// make this page a dynamic route -> will update 
+export const dynamic = 'force-dynamic'
+
 export default IssuesPage 
