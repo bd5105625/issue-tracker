@@ -26,67 +26,67 @@ const NavBar = () => {
 
 const NavLink = () => {
   const currentPath = usePathname();
-  const lists = [
-    { name: 'Dashboard', href: '/' },
-    { name: 'Issues', href: '/issues' }
-  ]
-  console.log(currentPath)
+
+  const links = [
+    { label: "Dashboard", href: "/" },
+    { label: "Issues", href: "/issues" },
+  ];
+
   return (
-    <ul className='flex space-x-5'>
-      {lists.map(list => (
-        <li key={list.href}>
-          <Link  
+    <ul className="flex space-x-6">
+      {links.map((link) => (
+        <li key={link.href}>
+          <Link
             className={classnames({
               "nav-link": true,
-              "!text-zinc-900": list.href === currentPath
-              // "text-zinc-400": list.href !== currentPath,
-              // "hover:text-zinc-600 translate-colors": true
+              "!text-zinc-900": link.href === currentPath,
             })}
-            href={list.href}>{list.name}
+            href={link.href}
+          >
+            {link.label}
           </Link>
         </li>
       ))}
     </ul>
-    
-  )
-}
+  );
+};
 
 const AuthStatus = () => {
-  const {status, data: session} = useSession();
+  const { status, data: session } = useSession();
 
-  if (status === 'loading') return <Skeleton width="3rem"/>
+  if (status === "loading") return <Skeleton width="3rem" />;
 
-  if (status === 'unauthenticated') 
-    return <Link className="nav-link" href="/api/auth/signin">Login</Link>
-
+  if (status === "unauthenticated")
+    return (
+      <Link className="nav-link" href="/api/auth/signin">
+        Login
+      </Link>
+    );
 
   return (
-  <Box>
-    { status === 'authenticated' && (
+    <Box>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Avatar 
-            src={session.user!.image!} 
-            fallback='?'
-            size='2'
-            radius='full'
-            className='cursor-pointer'
+          <Avatar
+            src={session!.user!.image!}
+            fallback="?"
+            size="2"
+            radius="full"
+            className="cursor-pointer"
+            referrerPolicy="no-referrer"
           />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
           <DropdownMenu.Label>
-            <Text size='2'>
-              {session.user!.email}
-            </Text>
+            <Text size="2">{session!.user!.email}</Text>
           </DropdownMenu.Label>
           <DropdownMenu.Item>
             <Link href="/api/auth/signout">Log out</Link>
           </DropdownMenu.Item>
         </DropdownMenu.Content>
       </DropdownMenu.Root>
-    )}
-  </Box>
-  )
-}
+    </Box>
+  );
+};
 
 export default NavBar

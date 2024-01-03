@@ -13,7 +13,32 @@ const handler = NextAuth({
   ],
   session: {
     strategy: 'jwt'
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      console.log(url, baseUrl)
+      return baseUrl
+    },
+    async signIn({account, email, user}) {
+      const res = await prisma.user.findUnique({
+        where: {
+          email: user.email!
+        }
+      })
+      if (!res) {
+        return false
+      }
+      // res.
+      console.log('email from user', user.email)
+      return true
+    }
   }
+  // callbacks: {
+  //   async signIn({ user, account, profile, email, credentials }) {
+  //     return '/issues'
+  //   }
+  //   // redirect:
+  // }
 })
 
 export { handler as GET, handler as POST }
