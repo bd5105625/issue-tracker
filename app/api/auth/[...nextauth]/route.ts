@@ -19,7 +19,7 @@ const handler = NextAuth({
       console.log(url, baseUrl)
       return baseUrl
     },
-    async signIn({account, email, user}) {
+    async signIn({user}) {
       const res = await prisma.user.findUnique({
         where: {
           email: user.email!
@@ -28,8 +28,6 @@ const handler = NextAuth({
       if (!res) {
         return false
       }
-      // res.
-      console.log('email from user', user.email)
       return true
     }
   }
