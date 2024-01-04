@@ -7,6 +7,7 @@ import NavBar from './NavBar'
 import { Container, Theme, ThemePanel } from '@radix-ui/themes';
 import { SessionProvider } from 'next-auth/react';
 import AuthProvider from './auth/Provider';
+import QueryClientProvider from './QueryClientProvider';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -26,17 +27,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <AuthProvider> 
-          <Theme appearance="light" accentColor="iris" grayColor="mauve">
-            <NavBar />
-            <main className='px-5'>
-              <Container>
-                {children}
-              </Container>
-            </main>
-            {/* <ThemePanel /> */}
-          </Theme>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider> 
+            <Theme appearance="light" accentColor="iris" grayColor="mauve">
+              <NavBar />
+              <main className='px-5'>
+                <Container>
+                  {children}
+                </Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   )
