@@ -1,9 +1,7 @@
-import Image from 'next/image'
-import { Button } from '@radix-ui/themes'
-import Link from 'next/link'
+import Pagination from './components/Pagination'
 
 export default function Home() {
   return (
-    <div>Main Page</div>
+    <Pagination itemCount={100} pageSize={10} currentPage={10}/>
   )
 }
