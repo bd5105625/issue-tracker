@@ -44,7 +44,7 @@ const IssueDetailPage = async ({ params }: Props) => {
     </Grid>
   )
 }
-// force update every second
+// force update every second cuz this page need to update after editing
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Props) {
