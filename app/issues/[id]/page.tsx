@@ -5,7 +5,8 @@ import EditButton from './EditIssueButton'
 import IssueDetail from './IssueDetail'
 import DeleteIssueButton from './DeleteIssueButton'
 import { getServerSession } from 'next-auth'
-import authOptions from '@/app/auth/AuthOptions'
+// import authOptions from '@/app/auth/AuthOptions'
+import authOptions from '@/app/auth/authOptions'
 import AssigneeSelect from './AssigneeSelect'
 import { cache } from 'react'
 
@@ -44,7 +45,7 @@ const IssueDetailPage = async ({ params }: Props) => {
     </Grid>
   )
 }
-// force update every second cuz this page need to update after editing
+// force update every second cuz this page need to update after edit
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Props) {

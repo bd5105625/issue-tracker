@@ -25,14 +25,14 @@ const authOptions: NextAuthOptions = {
       return baseUrl
     },
     async signIn({user}) {
-      const res = await prisma.user.findUnique({
-        where: {
-          email: user.email!
-        }
-      })
-      if (!res) {
-        return false
-      }
+      // const res = await prisma.user.findUnique({
+      //   where: {
+      //     email: user.email!
+      //   }
+      // })
+      // if (!res) {
+      //   return false
+      // }
       return true
     },
     // async signOut()

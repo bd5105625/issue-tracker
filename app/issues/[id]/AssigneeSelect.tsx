@@ -30,7 +30,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
       <Select.Root 
         defaultValue={issue.assignedToUserId || "null"} // "null" is the value from Select.Item
         onValueChange={assignIssue }>
-        <Select.Trigger placeholder='Assign...'/>
+        <Select.Trigger />
         <Select.Content>
           <Select.Group>
             <Select.Label>Suggestions</Select.Label>
