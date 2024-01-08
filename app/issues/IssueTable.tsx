@@ -38,7 +38,7 @@ const IssueTable = async ({ searchParams, issues }: Props) => {
           return (
             <Table.Row key={issue.id}>
               <Table.Cell >
-                <Link href={`/issues/${issue.id}`} >
+                <Link href={`/issues/${issue.id}`} className='hover:text-blue-800 hover:underline' >
                   {issue.title}
                 </Link>
                 <div className='block md:hidden mt-1'>
