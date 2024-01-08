@@ -8,7 +8,7 @@ const LatestIssue = async () => {
 
   const issues = await prisma.issue.findMany({
     orderBy: {
-      createAt: 'desc'
+      createdAt: 'desc'
     },
     take: 5,
     include: { // include other relational table
