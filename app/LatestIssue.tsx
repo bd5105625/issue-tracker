@@ -1,3 +1,4 @@
+// 'use client'
 import React from 'react'
 import prisma from '@/prisma/client'
 import { Avatar, Flex, Table, Card, Heading } from '@radix-ui/themes'
