@@ -28,7 +28,7 @@ import { z } from 'zod';
 type IssueFormData = z.infer<typeof issueSchema>
 
 
-const IssueForm = async ({ issue } : { issue?:Issue }) => {
+const IssueForm = ({ issue } : { issue?:Issue }) => {
   const {register, control, handleSubmit, formState: {errors}} = useForm<IssueFormData>({
     resolver: zodResolver(issueSchema),
   });
