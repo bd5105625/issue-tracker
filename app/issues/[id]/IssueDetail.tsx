@@ -3,6 +3,7 @@ import { Issue } from '@prisma/client'
 import { Heading, Flex, Card, Text } from '@radix-ui/themes'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
+import StatusSelect from './StatusSelect'
 
 const IssueDetail = ({ issue } : { issue: Issue}) => {
   return (
@@ -11,6 +12,7 @@ const IssueDetail = ({ issue } : { issue: Issue}) => {
       <Flex gap="2" my="2">
 
         <IssueStatusBadge status={issue.status}/>
+        <StatusSelect issue={issue}/>
         <Text>{issue.createdAt.toDateString()}</Text>
       </Flex>
       <Card className='prose max-w-full mt-4'> {/* max-w-full take all the space*/}

@@ -8,17 +8,17 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    return NextResponse.json({}, { status: 401 });
-  }
+  // const session = await getServerSession(authOptions);
+  // if (!session) {
+  //   return NextResponse.json({}, { status: 401 });
+  // }
 
   const body = await request.json();
   const validation = patchIssueSchema.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error.format(), { status: 400 });
 
-  const { title, description, assignedToUserId } = body;
+  const { title, description, assignedToUserId, status } = body;
 
   // if there is a user id -> check whether the id is valid
   if (assignedToUserId) {
@@ -46,7 +46,8 @@ export async function PATCH(
     data: {
       title,
       description,
-      assignedToUserId
+      assignedToUserId,
+      status
     },
   });
   return NextResponse.json(updatedIssue);
