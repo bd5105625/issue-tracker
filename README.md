@@ -1,6 +1,6 @@
 ## Demo: https://issue-tracker-zeta-two.vercel.app
 
-### Stacks:
+### Stack:
 
 * TypeScript
 * NextJS
